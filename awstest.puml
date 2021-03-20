@@ -1,0 +1,34 @@
+@startuml
+'https://plantuml.com/class-diagram
+class HelloController{
+hello() --hello
+helloDto(name, amount) --hello/dto
+}
+class HelloResponseDto
+HelloController --> HelloResponseDto
+
+class Posts<entity>{
+id
+title
+content
+author
+update()
+}
+class PostsService{
+save()
+}
+class PostsApiController{
+save()
+}
+interface PostsRepository
+class PostsSaveRequestDto {
+    title;
+    content;
+    author;
+    PostsSaveRequestDto(){
+    toEntity()
+}
+PostsApiController --> PostsService
+PostsService -->PostsRepository
+
+@enduml
