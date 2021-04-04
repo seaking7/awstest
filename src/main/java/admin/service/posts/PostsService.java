@@ -2,13 +2,16 @@ package admin.service.posts;
 
 import admin.domain.posts.Posts;
 import admin.domain.posts.PostsRepository;
+import admin.web.dto.PostsListResponseDto;
 import admin.web.dto.PostsResponseDto;
 import admin.web.dto.PostsSaveRequestDto;
 import admin.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -18,6 +21,7 @@ public class PostsService {
 
     @Transactional
     public Long save(PostsSaveRequestDto requestDto){
+
         return postsRepository.save(requestDto.toEntity()).getId();
     }
 
@@ -35,5 +39,11 @@ public class PostsService {
         return new PostsResponseDto(entity);
     }
 
+    @Transactional(readOnly = true)
+    public List<PostsListResponseDto> findAllDesc() {
+        return postsRepository.findAllDesc().stream()
+                .map(PostsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
 
 }

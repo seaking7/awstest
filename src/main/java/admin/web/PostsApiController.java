@@ -7,7 +7,7 @@ import admin.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor  //롬복 생성자 자동생성
 @RestController
 public class PostsApiController {
 
@@ -23,7 +23,9 @@ public class PostsApiController {
         return postsService.update(id, requestDto);
     }
 
+    @GetMapping("/api/v1/posts/{id}")
     public PostsResponseDto findById(@PathVariable Long id){
+
         return postsService.findById(id);
     }
 }
